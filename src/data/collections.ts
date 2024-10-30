@@ -1,6 +1,6 @@
-import { Collection } from "@/types/collection";
+import { MusicCollection } from "@/types/index";
 
-export const musicCollections: Collection[] = [
+export const musicCollections: MusicCollection[] = [
     // Fitness Category
   {
        //Collection 1

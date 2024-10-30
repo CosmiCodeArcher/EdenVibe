@@ -1,15 +1,25 @@
 'use client';
 
 import Image from 'next/image';
-import { Collection } from '@/types/collection';
+import { MusicCollection } from '@/types/index';
+import { useRouter } from 'next/navigation';
 
 interface CollectionCardProps {
-    collection: Collection;
+    collection: MusicCollection;
   }
   
   export default function CollectionCard({ collection }: CollectionCardProps) {
-    return (
-      <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    const router = useRouter();
+
+    const handleClick = () => {
+      router.push(`/collections/${collection.id}`);
+  };
+
+      return (
+      <div 
+          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+          onClick={handleClick}
+        >
         <div className="relative h-48 w-full">
           <Image
             src={collection.coverImage}

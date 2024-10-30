@@ -4,5 +4,8 @@ export interface MusicCollection {
     description: string;
     playlistId: string;
     category: string;
-    coverImg: string;
+    coverImage: string;
+    trackCount: number;
+    duration: string;
+    featured?: boolean;
   }

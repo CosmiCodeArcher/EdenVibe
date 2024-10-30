@@ -1,6 +1,7 @@
 import { musicCollections } from '@/data/collections';
 
 export default function Categories() {
+      // Extract unique categories from musicCollections
     const categories = [...new Set(musicCollections.map(collection => collection.category))];
   
     return (
