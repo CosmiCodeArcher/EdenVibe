@@ -1,9 +1,9 @@
 // CompactPlayer.tsx
 'use client';
 
-import { PlayIcon, PauseIcon } from '@/components/icons';
 import Image from 'next/image';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
+import { motion } from 'framer-motion';
 
 interface Track {
   title: string;
@@ -17,82 +17,57 @@ interface CompactPlayerProps {
   onExpand: () => void;
 }
 
-export default function CompactPlayer({ track }: CompactPlayerProps) {
-  const { isPlaying, currentTime, duration, togglePlay, setVolume } = useAudioPlayer(track.audioSrc);
-  {/*seek,*/}
-  // const formatTime = (time: number) => {
-  //   const minutes = Math.floor(time / 60);
-  //   const seconds = Math.floor(time % 60);
-  //   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  // };
+export default function CompactPlayer({ track, onExpand }: CompactPlayerProps) {
+  const { isPlaying, currentTime, duration } = useAudioPlayer(track.audioSrc);
 
   return (
-    <div className="relative px-4 h-20 flex items-center bg-white dark:bg-gray-800">
+    <motion.div 
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      className="relative px-4 h-20 flex items-center 
+                 bg-gradient-to-r from-purple-900/90 
+                 to-black/90 backdrop-blur-lg"
+    >
         {/* Progress bar*/}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gray-200">
-        <div
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gray-800">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${(currentTime / duration) * 100}%` }}
           className='h-full bg-purple-600'
-          style={{ width: `${(currentTime / duration) * 100}%` }}
         />
       </div>
 
-      <div className="w-full grid grid-cols-3 items-center">
+      <div className="w-full flex items-center justify-between">
         {/* Left section - Track Info */}
-        <div className="flex items-center space-x-4">
-          <div className="relative w-12 h-12">
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className='flex items-center space-x-4 cursor-pointer'
+          onClick={onExpand}
+        >
+          <div className="relative w-12 h-12 group">
             <Image
               src={track.coverImage}
               alt={track.title}
               fill
-              className="object-cover rounded"
+              className='object-cover rounded-lg'
             />
+            <div className='absolute inset-0 bg-black/40 
+                            opacity-0 group-hover:opacity-100 
+                            transition-opacity rounded-lg'>
+            </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-medium text-sm">{track.title}</span>
-            <span className="text-xs text-gray-500">{track.artist}</span>
+            <span className='font-medium text-sm text-white'>{track.title}</span>
+            <span className="text-xs text-gray-400">{track.artist}</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Center section - Controls */}
-        <div className="flex items-center justify-center space-x-6">
-          <button className="text-gray-500 hover:text-gray-700">
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11 17L6 12L11 7" stroke="currentColor" strokeWidth="2"/>
-            </svg>
-          </button>
-          <button 
-            onClick={togglePlay}
-            className="w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 
-                     flex items-center justify-center text-white"
-          >
-            {isPlaying ? <PauseIcon className="w-6 h-6" /> : <PlayIcon className="w-6 h-6" />}
-          </button>
-          <button className="text-gray-500 hover:text-gray-700">
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 17L18 12L13 7" stroke="currentColor" strokeWidth="2"/>
-            </svg>
-          </button>
-        </div>
+        {/* Right section - Playing status */}
+        <div className='text-white text-sm'>
+          {isPlaying  ? 'Now Playing' : 'Paused'}
 
-        {/* Right section - Volume */}
-        <div className="flex items-center justify-end space-x-4">
-          <div className="flex items-center space-x-2">
-            <button className="text-gray-500 hover:text-gray-700">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" strokeWidth="2"/>
-              </svg>
-            </button>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              onChange={(e) => setVolume(parseFloat(e.target.value))}
-              className="w-20 h-1 bg-gray-200 rounded-lg appearance-none"
-            />
-          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

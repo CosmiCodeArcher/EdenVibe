@@ -16,45 +16,28 @@ interface CollectionCardProps {
   };
 
       return (
-      <div 
-          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+        <div 
+          className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105"
           onClick={handleClick}
         >
-        <div className="relative h-48 w-full">
+        <div className="relative h-80 w-full">
           <Image
             src={collection.coverImage}
             alt={collection.title}
             fill
             className="object-cover"
           />
+          <div className='absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300'></div>
         </div>
-        
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold truncate">{collection.title}</h3>
-            <span className="text-sm px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
-              {collection.category}
-            </span>
-          </div>
-          
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">
-            {collection.description}
-          </p>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm">{collection.trackCount} tracks</span>
-              <span className="text-sm">{collection.duration}</span>
-            </div>
-            
-            <button 
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full text-sm transition-colors duration-200"
-              onClick={() => {/* Handle play action */}}
-            >
-              Play
-            </button>
-          </div>
+
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+        <h3 className="text-2xl font-bold mb-2">{collection.title}</h3>
+        <p className="text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{collection.description}</p>
+        <div className="flex justify-between items-center">
+          <span className="text-sm">{collection.trackCount} tracks</span>
+          <span className="text-sm">{collection.duration}</span>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
