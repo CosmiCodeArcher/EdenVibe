@@ -1,44 +1,17 @@
-import type { NextPage } from 'next';
-import { Suspense } from 'react';
-import { Metadata } from 'next';
+// src/app/page.tsx
+import Playlist from '@/components/Playlist';
+import CollectionGrid from '@/components/CollectionGrid';
 
-import Hero from '@/components/Hero';
-import FeaturedCollections from '@/components/FeaturedCollections';
-import Categories from '@/components/Categories';
-import ErrorBoundary from '@/components/ErrorBoundary';
-
-
-export const metadata: Metadata = {
-  title: 'Home | EdenVibe360',
-  description: 'Discover and enjoy EDM & Chill Beats on EdenVibe360',
- };
-
- const Home: NextPage = () => {
+export default function Home() {
   return (
-    <>
-        <Hero />
-        <ErrorBoundary>
-        <Suspense 
-          fallback={
-            <div className='flex items-center justify-center py-10'>
-              Loading collections...
-            </div>
-          }
-        >
-          <FeaturedCollections />
-        </Suspense>
-        <Suspense 
-          fallback={
-            <div className='flex items-center justify-center py-10'>
-              Loading categories...
-            </div>
-          }
-        >
-          <Categories />
-        </Suspense>
-        </ErrorBoundary>
-    </>
+    <div className="min-h-screen bg-gray-900">
+      <main className="container mx-auto py-8 px-4">
+        <h1 className="text-4xl font-bold mb-8 text-white">EdenVibe360</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Playlist />
+          <CollectionGrid />
+        </div>
+      </main>
+    </div>
   );
-};
-
-export default Home;
+}

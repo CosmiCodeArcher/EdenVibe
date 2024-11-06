@@ -1,42 +1,36 @@
-'use client'
+'use client';
 
-import React, { ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
-interface ErrorBoundaryProps {
+interface Props {
   children: ReactNode;
+  fallback?: ReactNode;
 }
 
-interface ErrorBoundaryState {
+interface State {
   hasError: boolean;
+  error?: Error;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
+export class ErrorBoundary extends Component<Props, State> {
+  public state: State = {
+    hasError: false
+  };
+
+  public static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    // log the error here
-    console.error('Error caught in ErrorBoundary:', error);
-    return { hasError: true };
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Uncaught error:', error, errorInfo);
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
-  }
-
-  render() {
+  public render() {
     if (this.state.hasError) {
-      return (
-        <div className="text-center py-10">
-          <h2>Something went wrong</h2>
-          <button 
-            onClick={() => this.setState({ hasError: false })}
-            className="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-          >
-            Try again
-          </button>
+      return this.props.fallback || (
+        <div className="p-4 bg-red-50 text-red-800 rounded-lg">
+          <h2 className="text-lg font-semibold">Something went wrong</h2>
+          <p className="text-sm">{this.state.error?.message}</p>
         </div>
       );
     }
@@ -44,5 +38,3 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

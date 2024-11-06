@@ -1,76 +1,126 @@
-'use client'
+'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, Suspense } from 'react';
+import { usePlayer } from '@/context/PlayerContext';
+import { PlayIcon, PauseIcon, ChevronLeftIcon, ChevronRightIcon } from './icons';
+import Image from 'next/image';
+import LoadingSpinner from './LoadingSpinner';
+import dynamic from 'next/dynamic';
 
-import CompactPlayer from '@/components/audio/CompactPlayer';
-import ExpandedPlayer from '@/components/audio/ExpandedPlayer';
+// Dynamically import YouTubePlayer with no SSR
+const YouTubePlayer = dynamic(() => import('./YouTubePlayer'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />
+});
 
 export default function Player() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  // Replace with actual track data when available
-  const currentTrack = {
-    title: "Sample Track",
-    artist: "Sample Artist",
-    audioSrc: "https://example.com/audio/track.mp3",
-    coverImage: "https://example.com/images/cover.jpg"
-  };
+  const [isMounted, setIsMounted] = useState(false);
+  const { 
+    currentTrack, 
+    isPlaying, 
+    volume,
+    pauseTrack, 
+    resumeTrack,
+    nextTrack,
+    previousTrack,
+    setVolume
+  } = usePlayer();
+  const [playerReady, setPlayerReady] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (playerReady && currentTrack) {
+      setLoading(false);
+    }
+  }, [playerReady, currentTrack]);
+
+  if (!isMounted || !currentTrack) return null;
+
   return (
-
-    <div className='fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg'>
-      <div className='absolute left-0 right-0 h-[1px] bg-gray-200 dark:bg-gray-700'
-           style={{ top: isExpanded ? '20px' : '-1px' }} />
-
-      <div className={`relative transition-all duration-300
-        ${isExpanded ? 'h-[calc(100vh-64px)]' : 'h-20'}`}
-      >
-        <motion.button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className='absolute left-1/2 -translate-x-1/2
-                     z-20 w-12 h-12 bg-gradient-to-r from-purple-500 to-gray-400
-                     rounded-full shadow-lg flex items-center justify-center
-                     hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-400
-                     transition-all duration-300'
-          style={{
-            top: isExpanded ? '10px' : '20%',
-            transform: `translate(-20%, ${isExpanded ? '0' : '-20%'})`,
+    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4">
+      <Suspense fallback={<LoadingSpinner />}>
+        <YouTubePlayer
+          videoId={currentTrack.id}
+          onReady={() => {
+            setPlayerReady(true);
+            setLoading(false);
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          animate={{
-            rotate: isExpanded ? 180 : 0, 
+          onStateChange={(state) => {
+            console.log('Player state:', state);
+            if (state === 0) { // Video ended
+            nextTrack();
+            }
           }}
-        >
-          <motion.svg 
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox="0 0 24 24" 
-            fill="white"
-            className="w-6 h-6"
-            initial={{ opacity: 0.6 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              opacity: { duration: 0.2 },
-              rotate: { duration: 0.3, ease: "easeInOut" }
+          volume={volume}
+          isPlaying={isPlaying}
+        />
+      </Suspense>
+
+      <div className="container mx-auto flex items-center justify-between">
+        {/* Track Info */}
+        <div className="flex items-center gap-4">
+          <div className="relative w-12 h-12">
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
+              <Image
+                src={currentTrack.thumbnail}
+                alt={currentTrack.title}
+                fill
+                sizes="(max-width: 48px) 100vw"
+                className="rounded object-cover"
+                priority
+              />
+            )}
+          </div>
+          <div>
+            <h3 className="font-medium">{currentTrack.title}</h3>
+            <p className="text-sm text-gray-400">{currentTrack.duration}</p>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center gap-4">
+          <button 
+            className="p-2 hover:text-purple-500"
+            onClick={previousTrack}
+          >
+            <ChevronLeftIcon />
+          </button>
+          <button
+            className="p-3 bg-purple-600 rounded-full hover:bg-purple-700"
+            onClick={() => {
+              if (isPlaying) {
+                pauseTrack();
+              } else {
+                resumeTrack();
+              }
             }}
           >
-            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
-          </motion.svg>
-        </motion.button>
-        
-        <div className="h-full">
-        {isExpanded ? (
-            <ExpandedPlayer 
-              track={currentTrack} 
-              onCollapse={() => setIsExpanded(false)}
-            />
-        ) : (
-          <CompactPlayer 
-            track={currentTrack} 
-            onExpand={() => setIsExpanded(true)}
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <button 
+            className="p-2 hover:text-purple-500"
+            onClick={nextTrack}
+          >
+            <ChevronRightIcon />
+          </button>
+        </div>
+
+        {/* Volume Control */}
+        <div className="w-32">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            className="w-full"
+            onChange={(e) => setVolume(Number(e.target.value))}
           />
-        )}
         </div>
       </div>
     </div>
