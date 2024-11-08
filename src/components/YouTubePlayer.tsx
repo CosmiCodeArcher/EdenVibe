@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { usePlayer } from '@/context/PlayerContext';
 
 interface YouTubePlayerProps {
   videoId: string;
@@ -21,11 +22,40 @@ export default function YouTubePlayer({ videoId, onReady, onStateChange, volume,
   const [isMounted, setIsMounted] = useState(false);
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { pauseTrack, resumeTrack } = usePlayer();
 
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);
+
+  useEffect(() => {
+    if (playerRef.current) {
+      console.log('Play/Pause Effect - isPlaying:', isPlaying);
+      const playerState = playerRef.current.getPlayerState();
+      console.log('Current Player State:', playerState);
+
+      if (isPlaying) {
+        if (playerState !== 1) {
+          try {
+            playerRef.current.playVideo();
+            console.log('Forced play');
+          } catch (error) {
+            console.error('Error playing video:', error);
+          }
+        }
+      } else {
+        if (playerState === 1) {
+          try {
+            playerRef.current.pauseVideo();
+            console.log('Forced pause');
+          } catch (error) {
+            console.error('Error pausing video:', error);
+          }
+        }
+      }
+    }
+  }, [isPlaying]);
 
   const initializePlayer = () => {
     if (!isMounted || !containerRef.current) return;
@@ -47,8 +77,34 @@ export default function YouTubePlayer({ videoId, onReady, onStateChange, volume,
         onReady: () => {
           playerRef.current?.setVolume(volume);
           onReady();
+          
+          if (isPlaying) {
+            try {
+              playerRef.current.playVideo();
+            } catch (error) {
+              console.error('Error playing on ready:', error);
+            }
+          }
         },
-        onStateChange: (event: any) => onStateChange(event.data)
+        onStateChange: (event: any) => { 
+          console.log('YouTube Player State Change:', event.data);
+          onStateChange(event.data);
+        
+          switch (event.data) {
+            case 0: // Ended
+              onStateChange(2); // Pause
+              break;
+            case 1: // Playing
+              resumeTrack();
+              break;
+            case 2: // Paused
+              pauseTrack();
+              break;
+          }
+        },
+        onError: (error: any) => {
+          console.error('YouTube Player Error:', error);
+        }
       }
     });
   };
@@ -73,17 +129,6 @@ export default function YouTubePlayer({ videoId, onReady, onStateChange, volume,
       }
     };
   }, [videoId, isMounted]);
-
-  useEffect(() => {
-    if (playerRef.current?.getPlayerState && isMounted) {
-      const playerState = playerRef.current.getPlayerState();
-      if (isPlaying && playerState !== 1) {
-        playerRef.current.playVideo();
-      } else if (!isPlaying && playerState === 1) {
-        playerRef.current.pauseVideo();
-      }
-    }
-  }, [isPlaying, isMounted]);
 
   useEffect(() => {
     if (playerRef.current?.setVolume) {

@@ -6,6 +6,7 @@ import { PlayIcon, PauseIcon, ChevronLeftIcon, ChevronRightIcon } from './icons'
 import Image from 'next/image';
 import LoadingSpinner from './LoadingSpinner';
 import dynamic from 'next/dynamic';
+import { setFips } from 'crypto';
 
 // Dynamically import YouTubePlayer with no SSR
 const YouTubePlayer = dynamic(() => import('./YouTubePlayer'), {
@@ -50,9 +51,24 @@ export default function Player() {
             setLoading(false);
           }}
           onStateChange={(state) => {
-            console.log('Player state:', state);
-            if (state === 0) { // Video ended
-            nextTrack();
+            console.log('Player state changed:', state);
+            console.log('Current isPlaying:', isPlaying);
+            console.log('Current Track:', currentTrack.id);
+
+            switch (state) {
+              case 1: // Playing
+                if (!isPlaying) {
+                  resumeTrack();
+                }
+                break;
+              case 2: // Paused
+                if (isPlaying) {
+                  pauseTrack();
+                }
+                break;
+              case 0: // Ended
+                nextTrack();
+                break;
             }
           }}
           volume={volume}
