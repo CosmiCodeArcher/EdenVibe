@@ -19,7 +19,7 @@ export const musicCollections: MusicCollection[] = [
     id: "cardio-boost",
     title: "Cardio Boost",
     description: "Upbeat tracks to keep you moving during cardio",
-    youtubePlaylistId: "YOUR_YOUTUBE_PLAYLIST_ID",
+    youtubePlaylistId: "PLevZf2LIlmDc7iipen-yfxiIKDs9zeMOR",
     category: "Fitness",
     coverImage: "/images/cardio-boost.jpg",
     trackCount: 20,
