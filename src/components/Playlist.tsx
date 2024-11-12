@@ -1,4 +1,3 @@
-// src/components/Playlist.tsx
 'use client';
 
 import { usePlayer } from '@/context/PlayerContext';
@@ -8,22 +7,26 @@ import { PlayIcon, PauseIcon } from './icons';
 export default function Playlist() {
   const { playlist, currentTrack, isPlaying, playTrack, pauseTrack, resumeTrack } = usePlayer();
 
-  const handleTrackClick = (track: typeof playlist[0]) => {
+  const handleTrackClick = (track: typeof playlist[number]) => {
     if (currentTrack?.id === track.id) {
-      isPlaying ? pauseTrack() : resumeTrack();
+      if (isPlaying) {
+        pauseTrack();
+      } else {
+        resumeTrack();
+      }
     } else {
       playTrack(track);
     }
   };
 
   return (
-    <div className="bg-gray-900 text-white p-4 rounded-lg">
+    <div className="bg-gradient-to-tr from-teal-700 to-black text-white p-4 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Current Playlist</h2>
       <ul className="space-y-2">
         {playlist.map((track) => (
           <li 
             key={track.id} 
-            className={`flex items-center p-2 hover:bg-gray-800 rounded cursor-pointer ${
+            className={`flex items-center p-2 hover:bg-blue-800 rounded cursor-pointer transition duration-200${
               currentTrack?.id === track.id ? 'bg-gray-800' : ''
             }`}
             onClick={() => handleTrackClick(track)}

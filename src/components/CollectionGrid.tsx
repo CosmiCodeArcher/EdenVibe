@@ -10,7 +10,7 @@ export default function CollectionGrid() {
   return (
     <div className="grid gap-6">
       <h2 className="text-2xl font-bold text-white">Featured Collections</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {featuredCollections.map(collection => (
           <CollectionCard key={collection.id} collection={collection} />
         ))}
