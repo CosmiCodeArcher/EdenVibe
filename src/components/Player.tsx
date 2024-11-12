@@ -6,7 +6,6 @@ import { PlayIcon, PauseIcon, ChevronLeftIcon, ChevronRightIcon } from './icons'
 import Image from 'next/image';
 import LoadingSpinner from './LoadingSpinner';
 import dynamic from 'next/dynamic';
-import { setFips } from 'crypto';
 
 // Dynamically import YouTubePlayer with no SSR
 const YouTubePlayer = dynamic(() => import('./YouTubePlayer'), {
@@ -42,7 +41,8 @@ export default function Player() {
   if (!isMounted || !currentTrack) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4">
+
+    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-tr from-teal-700 to-black text-white p-4">
       <Suspense fallback={<LoadingSpinner />}>
         <YouTubePlayer
           videoId={currentTrack.id}
