@@ -43,8 +43,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         <p className="text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{collection.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-sm">{collection.trackCount} tracks</span>
-          <span className="text-sm">{collection.duration}</span>
-        </div>
+          <span className="text-sm">{collection.duration}</span>        </div>
       </div>
     </div>
   );
