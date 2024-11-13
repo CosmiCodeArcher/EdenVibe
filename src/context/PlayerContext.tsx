@@ -46,7 +46,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         setCurrentTrack(tracks[0]);
         setIsPlaying(false);
       }
-
     } catch (error) {
       console.error('Error loading collection:', error);
     }
