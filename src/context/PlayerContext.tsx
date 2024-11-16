@@ -9,7 +9,7 @@ interface PlayerContextType {
   playlist: YouTubeTrack[];
   isPlaying: boolean;
   volume: number;
-  loadCollection: (collection: MusicCollection) => Promise<void>;
+  loadCollection: (collection: MusicCollection) => Promise<YouTubeTrack[]>;
   playTrack: (track: YouTubeTrack) => void;
   pauseTrack: () => void;
   resumeTrack: () => void;
@@ -27,18 +27,19 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [playlist, setPlaylist] = useState<YouTubeTrack[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(100);
+  const [loading, setLoading] = useState (false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const loadCollection = useCallback(async (collection: MusicCollection) => {
-    if (!isMounted) return;
+  const loadCollection = useCallback(async (collection: MusicCollection): Promise<YouTubeTrack[]> => {
+    setLoading(true);
     try {
       const response = await fetch(`/api/playlist?playlistId=${collection.youtubePlaylistId}`);
       if (!response.ok) throw new Error('Failed to fetch playlist');
       
-      const tracks = await response.json();
+      const tracks: YouTubeTrack[] = await response.json();
       setPlaylist(tracks);
       setCurrentCollection(collection);
       
@@ -46,10 +47,15 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         setCurrentTrack(tracks[0]);
         setIsPlaying(false);
       }
+
+      return tracks;
     } catch (error) {
       console.error('Error loading collection:', error);
+      return [];
+    } finally {
+      setLoading(false);
     }
-  }, [isMounted]);
+  }, []);
 
   useEffect(() => {
     if (!isMounted) return;

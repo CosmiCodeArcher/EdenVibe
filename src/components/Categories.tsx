@@ -1,4 +1,3 @@
-// src/components/Categories.tsx
 'use client';
 
 import { useState } from 'react';
@@ -26,7 +25,6 @@ export default function Categories() {
 
   return (
     <div>
-      {/* <h2 className="text-2xl font-bold text-white mb-2">Categories</h2> */}
       <div className="flex space-x-4 mb-5">
         {categories.map(category => (
           <motion.button 
@@ -41,12 +39,14 @@ export default function Categories() {
           </motion.button>
         ))}
       </div>
-      {/* Display filtered collections based on selected category */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {shuffledCollections
           .filter(collection => !selectedCategory || collection.category === selectedCategory)
           .map(collection => (
-            <CollectionCard key={collection.id} collection={collection} /> 
+            <CollectionCard 
+              key={collection.id} 
+              collection={collection} 
+            /> 
           ))}
       </div>
     </div>
