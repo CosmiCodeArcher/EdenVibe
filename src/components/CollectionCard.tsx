@@ -5,6 +5,8 @@ import Image from 'next/image';
 import CustomModal from './CustomModal';
 import { useModal } from '@/context/ModalContext';
 import { PlayIcon, PauseIcon } from './icons'
+import { useState } from 'react';
+import LoadingSpinner from './LoadingSpinner';
 
 interface CollectionCardProps {
   collection: MusicCollection;
@@ -13,13 +15,17 @@ interface CollectionCardProps {
 export default function CollectionCard({ collection }: CollectionCardProps) {
   const { loadCollection, playlist, currentTrack, isPlaying, playTrack, pauseTrack, resumeTrack  } = usePlayer();
   const { openModalId, openModal, closeModal } = useModal();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
+    setIsLoading(true);
     try {
       await loadCollection(collection);
       openModal(collection.id);
     } catch (error) {
       console.error('Error loading collection:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -65,6 +71,11 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         onClose={closeModal} 
         title={collection.title}
       >
+        {isLoading ? (
+          <div className="flex justify-center items-center h-32">
+            <LoadingSpinner />
+        </div>
+        ) : (
         <div>
         <ul className="space-y-2">
             {playlist.map((track) => (
@@ -97,6 +108,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
             ))}
           </ul>
         </div>
+        )}
       </CustomModal>
     </div>
   );

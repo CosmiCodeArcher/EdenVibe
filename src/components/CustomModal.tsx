@@ -43,6 +43,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, title, child
                 >
                     &times; {/* Close icon */}
                 </button>
+                <div className="absolute top-4 right-16 text-sm text-gray-300">
+                    <span>Please close this menu to scroll.</span>
+                </div>
                 <div className="mt-6 max-h-96 overflow-y-auto">{children}</div>
             </motion.div>
         </motion.div>

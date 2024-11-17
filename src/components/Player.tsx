@@ -51,10 +51,6 @@ export default function Player() {
             setLoading(false);
           }}
           onStateChange={(state) => {
-            console.log('Player state changed:', state);
-            console.log('Current isPlaying:', isPlaying);
-            console.log('Current Track:', currentTrack.id);
-
             switch (state) {
               case 1: // Playing
                 if (!isPlaying) {

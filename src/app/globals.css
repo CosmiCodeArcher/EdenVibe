@@ -24,3 +24,15 @@
 .animation-delay-600 {
   animation-delay: 600ms;
 }
+
+body {
+  background-color: #0f172a;
+}
+
+h1, h2, h3 {
+  font-family: 'Arial', sans-serif;
+}
+
+p {
+  line-height: 1.5;
+}

@@ -24,8 +24,8 @@ export default function Categories() {
   const shuffledCollections = shuffleArray([...musicCollections]);
 
   return (
-    <div>
-      <div className="flex space-x-4 mb-5">
+    <div className='p-4 md:p-3 lg:p-2'>
+      <div className="flex flex-wrap space-x-4 mb-5 justify-center md:justify-start">
         {categories.map(category => (
           <motion.button 
             key={category} 
@@ -39,7 +39,7 @@ export default function Categories() {
           </motion.button>
         ))}
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {shuffledCollections
           .filter(collection => !selectedCategory || collection.category === selectedCategory)
           .map(collection => (

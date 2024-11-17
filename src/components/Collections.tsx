@@ -1,4 +1,3 @@
-// src/components/Collections.tsx
 'use client';
 
 import { musicCollections } from '@/data/collections';
@@ -16,7 +15,7 @@ export default function Collections() {
     const shuffledCollections = shuffleArray([...musicCollections]);
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-4 md:p-2 lg:p-2">
           {shuffledCollections.map(collection => (
             <CollectionCard key={collection.id} collection={collection} />
           ))}
