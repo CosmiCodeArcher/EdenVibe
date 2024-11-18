@@ -16,6 +16,7 @@ interface PlayerContextType {
   nextTrack: () => void;
   previousTrack: () => void;
   setVolume: (volume: number) => void;
+  loading: boolean;
 }
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
@@ -129,6 +130,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     nextTrack,
     previousTrack,
     setVolume,
+    loading
   };
 
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
