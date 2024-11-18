@@ -43,7 +43,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       setPlaylist(tracks);
       setCurrentCollection(collection);
       
-      if (tracks.length > 0) {
+      if (tracks.length > 0 && !isPlaying) {
         setCurrentTrack(tracks[0]);
         setIsPlaying(false);
       }
@@ -55,7 +55,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isPlaying]);
 
   useEffect(() => {
     if (!isMounted) return;
