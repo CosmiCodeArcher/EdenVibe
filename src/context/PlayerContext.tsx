@@ -48,7 +48,6 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         setCurrentTrack(tracks[0]);
         setIsPlaying(false);
       }
-
       return tracks;
     } catch (error) {
       console.error('Error loading collection:', error);
@@ -88,19 +87,12 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const nextTrack = useCallback(() => {
-    console.log('nextTrack called');
-    console.log('Current Track:', currentTrack);
-    console.log('Playlist:', playlist);
-
     if (!currentTrack || playlist.length === 0) { 
       console.log('Cannot change track - no current track or empty playlist');
       return
     };
     const currentIndex = playlist.findIndex(track => track.id === currentTrack.id);
     const nextIndex = (currentIndex + 1) % playlist.length;
-    console.log('Next Index:', nextIndex);
-    console.log('Next Track:', playlist[nextIndex]);
-
     setCurrentTrack(playlist[nextIndex]);
     setIsPlaying(true);
   }, [currentTrack, playlist]);

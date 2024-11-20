@@ -158,7 +158,8 @@ export default function YouTubePlayer({ videoId, onReady, onStateChange, volume,
         playerRef.current.destroy();
       }
     };
-  }, [ isMounted, videoId, volume, isPlaying, onReady, onStateChange, pauseTrack, resumeTrack]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ videoId,isMounted]);
 
   useEffect(() => {
     if (playerRef.current?.setVolume) {
