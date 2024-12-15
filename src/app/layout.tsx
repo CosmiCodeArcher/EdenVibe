@@ -7,6 +7,7 @@ import { PlayerProvider } from '@/context/PlayerContext';
 import { ModalProvider } from '@/context/ModalContext';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '@/components/LoadingScreen';
+import Head from 'next/head';
 
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
 
   return (
     <html lang="en">
+      <Head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="frame-src 'self' https://www.youtube.com https://vercel.live/;"
+        />
+      </Head>
       <body className='bg-gradient-to-r from-black via-teal-600 to-blue-900'>
         {loading ? (
           <LoadingScreen />
