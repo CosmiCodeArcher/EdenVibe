@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 interface CustomModalProps {
     isOpen: boolean;
@@ -8,15 +8,15 @@ interface CustomModalProps {
     children: React.ReactNode;
 }
 
-const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, title, children }) => {
+const CustomModal: React.FC<CustomModalProps> = ({ isOpen,onClose, title, children }) => {
 
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [isOpen]);
+    // useEffect(() => {
+    //     if (isOpen) {
+    //         document.body.style.overflow = 'hidden';
+    //     } else {
+    //         document.body.style.overflow = 'unset';
+    //     }
+    // }, [isOpen]);
       
     if (!isOpen) return null;
 
@@ -43,9 +43,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, title, child
                 >
                     &times; {/* Close icon */}
                 </button>
-                <div className="absolute top-4 right-16 text-sm text-gray-300">
+                {/* <div className="absolute top-4 right-16 text-sm text-gray-300">
                     <span>Please close this menu to scroll.</span>
-                </div>
+                </div> */}
                 <div className="mt-6 max-h-96 overflow-y-auto">{children}</div>
             </motion.div>
         </motion.div>

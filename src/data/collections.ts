@@ -9,7 +9,7 @@ export const musicCollections: MusicCollection[] = [
     description: "Energetic beats to fuel your intense workout sessions",
     youtubePlaylistId: "PLevZf2LIlmDdIL6OOS3CpZqCv95eMebnH",
     category: "Fitness",
-    coverImage: "/images/high-intensity.png",
+    coverImage: "/images/high-intensity.webp",
     trackCount: 15,
     duration: "1h 10m",
   },
@@ -20,7 +20,7 @@ export const musicCollections: MusicCollection[] = [
     description: "Upbeat tracks to keep you moving during cardio",
     youtubePlaylistId: "PLevZf2LIlmDc7iipen-yfxiIKDs9zeMOR",
     category: "Fitness",
-    coverImage: "/images/cardio-boost.png",
+    coverImage: "/images/cardio-boost.webp",
     trackCount: 1,
     duration: "2m 15s",
     featured: true
@@ -45,7 +45,7 @@ export const musicCollections: MusicCollection[] = [
     description: "Serene sounds for deep meditation and relaxation",
     youtubePlaylistId: "PLevZf2LIlmDeWDzjuesyf3fsTLcvBgTwH",
     category: "Wellness",
-    coverImage: "/images/meditation-bliss.png",
+    coverImage: "/images/meditation-bliss.webp",
     trackCount: 20,
     duration: "1h 30m"
   },
@@ -56,23 +56,11 @@ export const musicCollections: MusicCollection[] = [
     description: "Calming melodies to accompany your yoga practice",
     youtubePlaylistId: "PLevZf2LIlmDeowBceiByOK6wCGPzJ4Br6",
     category: "Wellness",
-    coverImage: "/images/yoga-flow.png",
+    coverImage: "/images/yoga-flow.jpg",
     trackCount: 20,
     duration: "1h 30m",
     featured: true
   },
-  {
-      //Collection 3
-    id: "Mindful Moments",
-    title: "Mindful Moments",
-    description: "Gentle tunes for mindfulness and present living",
-    youtubePlaylistId: "PLevZf2LIlmDeA4Ek7kVX-MGFReS42_TpD",
-    category: "Wellness",
-    coverImage: "/images/mindful-moments.jpg",
-    trackCount: 20,
-    duration: "1h 30m"
-  },
-
     // Productivity Category
   {
       //Collection 1
@@ -81,31 +69,10 @@ export const musicCollections: MusicCollection[] = [
     description: "Concentration-enhancing tracks for deep work sessions",
     youtubePlaylistId: "PLevZf2LIlmDdLgd_8v86mcG6ecARBQEAn",
     category: "Productivity",
-    coverImage: "/images/deep-work.jpg",
+    coverImage: "/images/focus-zone.webp",
     trackCount: 20,
     duration: "1h 30m"
   },
-  {
-    id: "Study/Focus Beats",
-    title: "Study Beats",
-    description: "A collection of tracks to help you stay focused on your studies",
-    youtubePlaylistId: "PLevZf2LIlmDd0JLCLQ6DLZ_vsKrQZWIv6",
-    category: "Productivity",
-    coverImage: "/images/study-focus-beats.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-  {
-    id: "Epic Focus",
-    title: "Epic Focus",
-    description: "High-energy beats to help you stay focused on your epic tasks",
-    youtubePlaylistId: "PLevZf2LIlmDfMWN-LGe_jXbcu2b4UfPwY",
-    category: "Productivity",
-    coverImage: "/images/epic-focus.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-
     // Sleep and Relaxation Category
   {
       //Collection 1
@@ -118,61 +85,6 @@ export const musicCollections: MusicCollection[] = [
     trackCount: 20,
     duration: "1h 30m"
   },
-  {
-    id: "Afternoon Tea Mix",
-    title: "Afternoon Tea Mix",
-    description: "Gentle melodies perfect for a relaxing afternoon tea",
-    youtubePlaylistId: "PLevZf2LIlmDdxwBKkwIcD9efvDJKTuEmU",
-    category: "Sleep and Relaxation",
-    coverImage: "/images/afternoon-tea-mix.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-  {
-    id: "Late Night Lounge",
-    title: "Late Night Lounge",
-    description: "Chill beats for a relaxed late-night atmosphere",
-    youtubePlaylistId: "PLevZf2LIlmDdVlSVen37vOS67igQAnpjB",
-    category: "Sleep and Relaxation",
-    coverImage: "/images/late-night-lounge.png",
-    trackCount: 20,
-    duration: "1h 30m",
-},
-
-    // Nature Sounds Category
- 
-  {
-      //Collection 1
-    id: "Rainy Day",
-    title: "Rainy Day",
-    description: "Soothing rain sounds for a cozy atmosphere",
-    youtubePlaylistId: "PLevZf2LIlmDcJ7nmfQnvpjXlsRmxMlMFC",
-    category: "Nature Sounds",
-    coverImage: "/images/rainy-day.jpg",
-    trackCount: 20,
-    duration: "1h 30m"
-  },
-  {
-    id: "Nature and Ambient Sounds",
-    title: "Nature & Ambient Sounds",
-    description: "Relaxing sounds from nature to create a peaceful environment",
-    youtubePlaylistId: "PLevZf2LIlmDdeVkwyIu7fZk9sfuwuSxG0",
-    category: "Nature Sounds",
-    coverImage: "/images/nature-ambient-sounds.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-  {
-    id: "Ocean Waves Beats",
-    title: "Ocean Waves & Beats",
-    description: "Chill beats mixed with soothing ocean wave sounds",
-    youtubePlaylistId: "PLevZf2LIlmDe8VG87TYouR39Legxr3NFA",
-    category: "Nature Sounds",
-    coverImage: "/images/ocean-waves-beats.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-
     // Ambient and Background Category
   {
       //Collection 1
@@ -181,30 +93,10 @@ export const musicCollections: MusicCollection[] = [
     description: "Subtle background sounds for a productive work environment",
     youtubePlaylistId: "PLevZf2LIlmDeMphiWxCnjotPTXrEElmrl",
     category: "Ambient and Background",
-    coverImage: "/images/ambient-work.png",
+    coverImage: "/images/ambient-work.webp",
     trackCount: 2,
     duration: "4m 30s",
     featured: true
-  },
-  {
-    id: "Ambient Chill Mix",
-    title: "Ambient Chill Mix",
-    description: "A mix of ambient beats to help you relax and focus",
-    youtubePlaylistId: "PLevZf2LIlmDco6GxMUVN4GG-I0OLxZGin",
-    category: "Ambient and Background",
-    coverImage: "/images/ambient-chill-mix.png",
-    trackCount: 20,
-    duration: "1h 30m",
-  },
-  {
-    id: "Background Sounds",
-    title: "Background Sounds",
-    description: "Subtle background sounds for various settings and activities",
-    youtubePlaylistId: "PLevZf2LIlmDc34pDMBC-bMNITF1FM74Fg",
-    category: "Ambient and Background",
-    coverImage: "/images/background-sounds.png",
-    trackCount: 20,
-    duration: "1h 30m",
   },
   {
     id: "Peaceful Sounds",
@@ -212,7 +104,7 @@ export const musicCollections: MusicCollection[] = [
     description: "A collection of calming sounds for meditation and relaxation",
     youtubePlaylistId: "PLevZf2LIlmDdNLGoNmtIJn2a0xiH_0kSL",
     category: "Ambient and Background",
-    coverImage: "/images/peaceful-sounds.png",
+    coverImage: "/images/peaceful-sounds.avif",
     trackCount: 20,
     duration: "1h 30m",
   },

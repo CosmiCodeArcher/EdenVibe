@@ -19,8 +19,20 @@ export default function Playlist() {
     }
   };
 
+  // Calculate the height needed for exactly two tracks (including padding, margins, etc.)
+  const singleTrackHeight = 56; // px (approx height of one track item)
+  const headerHeight = 56; // px (approx height of header)
+  const containerPadding = 32; // px (p-4 = 16px top + 16px bottom)
+  const maxHeight = headerHeight + (singleTrackHeight * 2) + containerPadding;
+
   return (
-    <div className="bg-gradient-to-tr from-teal-700 to-black text-white p-4 rounded-lg shadow-lg">
+    <div className="w-3/12 bg-gradient-to-tr from-teal-700 to-black text-white p-4 rounded-lg shadow-lg"
+          style={{ 
+              minHeight: `${maxHeight}px`,
+              maxHeight: `${maxHeight}px`,
+              overflowY: 'auto'
+          }}
+    >
       <h2 className="text-2xl font-bold mb-4">Current Playlist</h2>
       <ul className="space-y-2">
         {playlist.map((track) => (
