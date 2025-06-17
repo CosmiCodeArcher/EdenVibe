@@ -29,7 +29,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen,onClose, title, childr
             transition={{ duration: 0.3 }}
         >
             <motion.div
-                className="bg-gradient-to-r from-black via-teal-600 to-blue-900 rounded-lg shadow-2xl p-6 max-w-lg w-full"
+                className="bg-white/5 backdrop-blur-sm rounded-lg shadow-2xl p-6 max-w-lg w-full text-white"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.8 }}
