@@ -36,7 +36,7 @@ export default function LoadingScreen() {
             style={{ zIndex: 0 }}
         ></div>
           <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 z-10">
-            Welcome to EdenVibe360
+            Welcome to EdenVibe
           </h1>
           <p className="text-lg font-semibold tracking-wider text-gray-300 z-10">
             Bringing you the beats for every moment...
