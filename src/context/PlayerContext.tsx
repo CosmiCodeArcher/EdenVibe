@@ -57,21 +57,21 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     }
   }, [isPlaying]);
 
-  useEffect(() => {
-    if (!isMounted) return;
+  // useEffect(() => {
+  //   if (!isMounted) return;
     
-    const defaultCollection = {
-      id: 'ambient-work',
-      youtubePlaylistId: 'PLevZf2LIlmDeMphiWxCnjotPTXrEElmrl',
-      title: 'Ambient Work',
-      description: 'Subtle background sounds for a productive work environment',
-      category: 'Ambient and Background',
-      coverImage: '/images/high-intensity.jpg',
-      trackCount: 1,
-      duration: '2m 14s'
-    };
-    loadCollection(defaultCollection);
-  }, [isMounted, loadCollection]);
+  //   const defaultCollection = {
+  //     id: 'ambient-work',
+  //     youtubePlaylistId: 'PLevZf2LIlmDeMphiWxCnjotPTXrEElmrl',
+  //     title: 'Ambient Work',
+  //     description: 'Subtle background sounds for a productive work environment',
+  //     category: 'Ambient and Background',
+  //     coverImage: '/images/high-intensity.jpg',
+  //     trackCount: 1,
+  //     duration: '2m 14s'
+  //   };
+  //   loadCollection(defaultCollection);
+  // }, [isMounted, loadCollection]);
 
   const playTrack = useCallback((track: YouTubeTrack) => {
     setCurrentTrack(track);
